@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PlayerProjectile : MonoBehaviour
 {
+    [SerializeField] GameObject killable;
     Vector3 startPosition;
     Vector3 endPoint;
     Rigidbody rb;
     Material mat;
     MeshRenderer mesh;
-    SphereColor color;
+    public SphereColor color;
     float constantSpeed = 30f;
     float speed = 30f;
     // Start is called before the first frame update
@@ -45,11 +46,13 @@ public class PlayerProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        transform.position = startPosition;
+        speed = 0f;
         KillableSphere kill = other.GetComponent<KillableSphere>();
+        // Instantiate(killable, transform.position, Quaternion.identity);
         if (kill.IsSameColor(color))
         {
-            transform.position = startPosition;
-            speed = 0f;
+            kill.Explode();
         }
     }
 

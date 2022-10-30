@@ -2627,6 +2627,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1385684597}
     m_Modifications:
+    - target: {fileID: 2363035622892698652, guid: c46d78a1b1b74094dbe2bb0b5c88d739, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3997052856540011242, guid: c46d78a1b1b74094dbe2bb0b5c88d739, type: 3}
       propertyPath: m_Name
       value: SphereToDestroy
@@ -5229,6 +5233,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1385684597}
     m_Modifications:
+    - target: {fileID: 2363035622892698652, guid: c46d78a1b1b74094dbe2bb0b5c88d739, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3997052856540011242, guid: c46d78a1b1b74094dbe2bb0b5c88d739, type: 3}
       propertyPath: m_Name
       value: SphereToDestroy
@@ -6670,6 +6678,10 @@ PrefabInstance:
       propertyPath: greenMat
       value: 
       objectReference: {fileID: 2100000, guid: 3721f4038259a004fb055a18bb1270db, type: 2}
+    - target: {fileID: 1973641238321682276, guid: 696096e472fae274b84d6f710a29c01f, type: 3}
+      propertyPath: killable
+      value: 
+      objectReference: {fileID: 3997052856540011242, guid: c46d78a1b1b74094dbe2bb0b5c88d739, type: 3}
     - target: {fileID: 4764518266523369602, guid: 696096e472fae274b84d6f710a29c01f, type: 3}
       propertyPath: m_RootOrder
       value: 2
