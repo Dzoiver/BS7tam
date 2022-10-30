@@ -6,7 +6,7 @@ public class LineController : MonoBehaviour
 {
     LineRenderer line;
     [SerializeField] GameObject sphere;
-    [SerializeField] GameObject throwSphere;
+    [SerializeField] PlayerProjectile projectile;
     Vector3 worldPosition;
     Vector3 screenPosition;
     // Start is called before the first frame update
@@ -39,7 +39,7 @@ public class LineController : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
-            Instantiate(throwSphere, transform);
+            projectile.Launch(worldPosition);
         }
     }
 }
