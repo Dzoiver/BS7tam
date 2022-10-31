@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerProjectile : MonoBehaviour
 {
     [SerializeField] GameObject killable;
+    [SerializeField] Grid grid;
+    float minimumDistance = 5f;
+    Vector3 newBallPosition;
     Vector3 startPosition;
     Vector3 endPoint;
     Rigidbody rb;
@@ -46,13 +49,26 @@ public class PlayerProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        transform.position = startPosition;
-        speed = 0f;
-        KillableSphere kill = other.GetComponent<KillableSphere>();
-        // Instantiate(killable, transform.position, Quaternion.identity);
-        if (kill.IsSameColor(color))
+        if (other.tag == "kill")
         {
-            kill.Explode();
+            transform.position = startPosition;
+            speed = 0f;
+            KillableSphere kill = other.GetComponent<KillableSphere>();
+            // Instantiate(killable, transform.position, Quaternion.identity);
+            if (kill.IsSameColor(color))
+            {
+                Debug.Log("Same color");
+                if (kill.checkScript.Amount >= 1)
+                kill.checkScript.Explode();
+                // More than 2? then explode
+            }
+            else
+            {
+                Debug.Log("Color not the same, creating ball");
+                // Place new ball at hit position
+                // Instantiate(killable, newBallPosition, Quaternion.identity);
+            }
+            InitColor();
         }
     }
 

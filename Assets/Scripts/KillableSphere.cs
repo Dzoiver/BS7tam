@@ -37,16 +37,17 @@ public class KillableSphere : MonoBehaviour
         }
     }
 
-    public void Explode()
-    {
-        checkScript.Explode();
-    }
-
     public bool IsSameColor(SphereColor playerColor)
     {
         if (playerColor == color)
+        {
             return true;
+        }
         else
+        {
+            Debug.Log("player: " + playerColor);
+            Debug.Log("object: " + color);
             return false;
+        }
     }
 }
