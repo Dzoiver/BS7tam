@@ -5,15 +5,15 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] GameObject mainMenuPanel;
-    [SerializeField] LineController lineC;
+    [SerializeField] Director dir;
     [SerializeField] Camera menuCam;
     [SerializeField] Camera gameCam;
     public void StartGame()
     {
-        lineC.StartGame();
         menuCam.enabled = false;
         gameCam.enabled = true;
         mainMenuPanel.SetActive(false);
+        dir.StartGame();
     }
 
     public void OpenLevelSelection()

@@ -6,6 +6,7 @@ public class PlayerProjectile : MonoBehaviour
 {
     [SerializeField] GameObject killable;
     [SerializeField] Grid grid;
+    [SerializeField] LineController lineC;
     float minimumDistance = 5f;
     Vector3 newBallPosition;
     Vector3 startPosition;
@@ -51,22 +52,24 @@ public class PlayerProjectile : MonoBehaviour
     {
         if (other.tag == "kill")
         {
+            newBallPosition = transform.position;
             transform.position = startPosition;
             speed = 0f;
             KillableSphere kill = other.GetComponent<KillableSphere>();
-            // Instantiate(killable, transform.position, Quaternion.identity);
-            if (kill.IsSameColor(color))
+            if (kill.IsSameColor(color) && kill.checkScript.Amount >= 1)
             {
                 Debug.Log("Same color");
-                if (kill.checkScript.Amount >= 1)
                 kill.checkScript.Explode();
-                // More than 2? then explode
             }
             else
             {
                 Debug.Log("Color not the same, creating ball");
-                // Place new ball at hit position
-                // Instantiate(killable, newBallPosition, Quaternion.identity);
+                Vector3 endPoint = newBallPosition - (rb.velocity.normalized * 1);
+                Debug.Log(endPoint);
+                Vector3Int cellPos = grid.WorldToCell(endPoint);
+                newBallPosition = grid.CellToWorld(cellPos);
+                GameObject ball = Instantiate(killable, newBallPosition, Quaternion.identity);
+                ball.GetComponent<KillableSphere>().SetColor(color);
             }
             InitColor();
         }

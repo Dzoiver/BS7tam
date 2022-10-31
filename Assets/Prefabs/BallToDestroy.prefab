@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selfcolor: 0
+  Amount: 0
   killSphere: {fileID: 7885089869594108753}
   sameColorBalls: []
 --- !u!54 &252881122619677041
@@ -191,3 +192,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: 0
   checkScript: {fileID: 1271731329028872541}
+  mesh: {fileID: 3997052856540011252}

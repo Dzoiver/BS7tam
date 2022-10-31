@@ -15,21 +15,12 @@ public class CheckAround : MonoBehaviour
         if (other.gameObject.name == "SphereToDestroy" && other.gameObject != killSphere.gameObject)
         {
             KillableSphere scriptSphere = other.gameObject.GetComponent<KillableSphere>();
-            if (scriptSphere.color == selfcolor)
+            if (scriptSphere.ballColor == selfcolor)
             {
                 sameColorBalls.Add(other.gameObject);
                 Amount++;
             }
         }
-
-        //if (other.gameObject.name == "Sphere" || false)
-        //{
-        //    PlayerProjectile projectile = other.gameObject.GetComponent<PlayerProjectile>();
-        //    if (projectile.color == selfcolor)
-        //    {
-        //        Explode();
-        //    }
-        //}
     }
 
     public void Explode()
@@ -39,9 +30,12 @@ public class CheckAround : MonoBehaviour
 
         for (int i = 0; i < sameColorBalls.Count; i++)
         {
-            KillableSphere script = sameColorBalls[i].GetComponent<KillableSphere>();
-            Debug.Log(script);
-            // script.checkScript.Explode();
+            if (sameColorBalls[i] != null)
+            {
+                Destroy(sameColorBalls[i]);
+                //KillableSphere script = sameColorBalls[i].GetComponent<KillableSphere>();
+                // script.checkScript.Explode();
+            }
         }
     }
 }
