@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1252905589594911278
 Transform:
   m_ObjectHideFlags: 0
@@ -45,7 +45,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.45, y: 1, z: 1.45}
+  m_Size: {x: 1.5951512, y: 1, z: 1.4934514}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1271731329028872541
 MonoBehaviour:
@@ -60,7 +60,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selfcolor: 0
-  Amount: 0
+  AdjacentBallsCount: 0
+  Exploded: 0
+  IsCreatedByPlayer: 0
   killSphere: {fileID: 7885089869594108753}
   sameColorBalls: []
 --- !u!54 &252881122619677041
@@ -190,6 +192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0406b3e37025c4287c845d74dbbdf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: 0
+  ballColor: 0
   checkScript: {fileID: 1271731329028872541}
   mesh: {fileID: 3997052856540011252}

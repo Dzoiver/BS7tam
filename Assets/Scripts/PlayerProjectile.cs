@@ -7,6 +7,7 @@ public class PlayerProjectile : MonoBehaviour
     [SerializeField] GameObject killable;
     [SerializeField] Grid grid;
     [SerializeField] LineController lineC;
+    [SerializeField] Director dir;
     float minimumDistance = 5f;
     Vector3 newBallPosition;
     Vector3 startPosition;
@@ -50,28 +51,35 @@ public class PlayerProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "kill")
+        if (other.tag == "kill" && lineC.BallLaunched)
         {
+            Debug.Log("We hit kill ball");
             newBallPosition = transform.position;
             transform.position = startPosition;
             speed = 0f;
             KillableSphere kill = other.GetComponent<KillableSphere>();
-            if (kill.IsSameColor(color) && kill.checkScript.Amount >= 1)
+            Debug.Log(kill.checkScript.AdjacentBallsCount + " kill.checkScript.Amount");
+            if (kill.IsSameColor(color) && kill.checkScript.AdjacentBallsCount >= 1)
             {
                 Debug.Log("Same color");
-                kill.checkScript.Explode();
+                kill.checkScript.ChainExplosion();
             }
             else
             {
                 Debug.Log("Color not the same, creating ball");
-                Vector3 endPoint = newBallPosition - (rb.velocity.normalized * 1);
+                Vector3 endPoint = newBallPosition - (rb.velocity.normalized * 1); //  
                 Debug.Log(endPoint);
                 Vector3Int cellPos = grid.WorldToCell(endPoint);
                 newBallPosition = grid.CellToWorld(cellPos);
+                newBallPosition.y = 0;
                 GameObject ball = Instantiate(killable, newBallPosition, Quaternion.identity);
-                ball.GetComponent<KillableSphere>().SetColor(color);
+                dir.BallCreated();
+                KillableSphere script = ball.GetComponent<KillableSphere>();
+                script.SetColor(color);
+                script.checkScript.IsCreatedByPlayer = true;
             }
             InitColor();
+            lineC.BallLaunched = false;
         }
     }
 

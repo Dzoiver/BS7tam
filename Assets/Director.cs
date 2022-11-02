@@ -29,6 +29,11 @@ public class Director : MonoBehaviour
         lineC.gameObject.SetActive(true);
     }
 
+    public void BallCreated()
+    {
+        currentBalls++;
+    }
+
     public void BallDestroyed()
     {
         currentBalls--;

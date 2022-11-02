@@ -48,6 +48,7 @@ public class KillableSphere : MonoBehaviour
             mat.color = new Color(1, 0, 0);
             checkScript.selfcolor = color;
         }
+        checkScript.gameObject.SetActive(true);
     }
 
     public void RandomColor()

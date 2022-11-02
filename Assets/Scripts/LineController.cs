@@ -12,7 +12,7 @@ public class LineController : MonoBehaviour
     Vector3 worldPosition;
     public Vector3 LaunchVect;
     Vector3 screenPosition;
-    bool gameStarted = false;
+    public bool BallLaunched = false;
     // Start is called before the first frame update
     void Awake()
     {
@@ -40,6 +40,7 @@ public class LineController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             projectile.Launch(worldPosition);
+            BallLaunched = true;
         }
     }
 }
