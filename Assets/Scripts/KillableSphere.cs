@@ -13,7 +13,6 @@ public class KillableSphere : MonoBehaviour
     void Start()
     {
         dir = FindObjectOfType<Director>();
-        
     }
 
     private void Awake()
@@ -23,7 +22,7 @@ public class KillableSphere : MonoBehaviour
 
     private void OnDestroy()
     {
-        dir.BallDestroyed();
+        dir.BallDestroyed(ballColor);
     }
 
     public void SetColor(SphereColor color)
@@ -51,21 +50,22 @@ public class KillableSphere : MonoBehaviour
         checkScript.gameObject.SetActive(true);
     }
 
-    public void RandomColor()
+    public SphereColor RandomColor()
     {
         int rng = Random.Range(0, 3);
         switch (rng)
         {
             case 0:
                 SetColor(SphereColor.Blue);
-                break;
+                return SphereColor.Blue;
             case 1:
                 SetColor(SphereColor.Green);
-                break;
+                return SphereColor.Green;
             case 2:
                 SetColor(SphereColor.Red);
-                break;
+                return SphereColor.Red;
         }
+        return SphereColor.Green;
     }
 
     public bool IsSameColor(SphereColor playerColor)
@@ -76,8 +76,6 @@ public class KillableSphere : MonoBehaviour
         }
         else
         {
-            Debug.Log("player: " + playerColor);
-            Debug.Log("object: " + ballColor);
             return false;
         }
     }

@@ -51,7 +51,6 @@ public class CheckAround : MonoBehaviour
 
     public void ChainExplosion()
     {
-        Debug.Log("Explosion started");
         Destroy(killSphere.gameObject);
         Exploded = true;
         for (int i = 0; i < sameColorBalls.Count; i++)
