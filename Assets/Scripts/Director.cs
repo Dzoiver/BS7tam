@@ -7,10 +7,12 @@ public class Director : MonoBehaviour
 {
     [SerializeField] GameObject nextButton;
     [SerializeField] GameObject victory;
-    [SerializeField] LineController lineC;
-    [SerializeField] LevelScript[] levels;
-    [SerializeField] GameObject level;
+    [SerializeField] GameObject gameCompletionMessage;
+    [SerializeField] GameObject confetti;
+    public LineController lineC;
+    [SerializeField] GameObject[] levels;
     [SerializeField] PlayerProjectile player;
+    [SerializeField] MainMenu menu;
     public int redBallsCount = 0;
     public int greenBallsCount = 0;
     public int blueBallsCount = 0;
@@ -23,10 +25,6 @@ public class Director : MonoBehaviour
         redBallsCount = red;
         greenBallsCount = green;
         blueBallsCount = blue;
-
-        Debug.Log("red: " + redBallsCount);
-        Debug.Log("green: " + greenBallsCount);
-        Debug.Log("blue: " + blueBallsCount);
     }
 
     public bool IsRedLeft()
@@ -59,8 +57,20 @@ public class Director : MonoBehaviour
 
     public void StartGame()
     {
+        confetti.SetActive(false);
+        Debug.Log(levelIndex);
+        if (levelIndex >= levels.Length - 1)
+        {
+            menu.BringMenu();
+            menu.resumeButton.SetActive(false);
+            gameCompletionMessage.SetActive(false);
+            levelIndex = 0;
+            nextButton.SetActive(false);
+            gameStarted = false;
+            return;
+        }
         Vector3 vect = new Vector3(0.77f, -0.5f, 0);
-        GameObject lvl = Instantiate(level, vect, Quaternion.identity);
+        GameObject lvl = Instantiate(levels[levelIndex], vect, Quaternion.identity);
         LevelScript lvlScript = lvl.GetComponent<LevelScript>();
         player.InitGrid(lvlScript.grid);
         nextButton.SetActive(false);
@@ -99,16 +109,22 @@ public class Director : MonoBehaviour
         currentBalls--;
         if (currentBalls <= 0)
             LevelComplete();
-        Debug.Log(currentBalls);
     }
 
     private void LevelComplete()
     {
-        if (levelIndex < levels.Length - 1)
         levelIndex++;
-        victory.SetActive(true);
-        nextButton.SetActive(true);
+        confetti.SetActive(true);
         gameStarted = false;
         lineC.gameObject.SetActive(false);
+        nextButton.SetActive(true);
+        if (levelIndex < levels.Length - 1)
+        {
+            victory.SetActive(true);
+        }
+        else
+        {
+            gameCompletionMessage.SetActive(true);
+        }
     }
 }

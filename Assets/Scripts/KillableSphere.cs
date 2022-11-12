@@ -23,6 +23,8 @@ public class KillableSphere : MonoBehaviour
     private void OnDestroy()
     {
         dir.BallDestroyed(ballColor);
+        PlayerProjectile player = FindObjectOfType<PlayerProjectile>();
+        player.InitColor();
     }
 
     public void SetColor(SphereColor color)

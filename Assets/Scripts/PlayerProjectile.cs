@@ -40,7 +40,7 @@ public class PlayerProjectile : MonoBehaviour
         grid = newgrid;
     }
 
-    private void InitColor()
+    public void InitColor()
     {
         int rng = Random.Range(0, 3);
         switch (rng)
@@ -94,7 +94,6 @@ public class PlayerProjectile : MonoBehaviour
                 script.SetColor(color);
                 script.checkScript.IsCreatedByPlayer = true;
             }
-            InitColor();
             lineC.BallLaunched = false;
         }
     }
