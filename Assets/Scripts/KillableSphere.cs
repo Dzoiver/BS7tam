@@ -20,11 +20,12 @@ public class KillableSphere : MonoBehaviour
         mat = mesh.material;
     }
 
-    private void OnDestroy()
+    public void PopBall()
     {
         dir.BallDestroyed(ballColor);
         PlayerProjectile player = FindObjectOfType<PlayerProjectile>();
         player.InitColor();
+        gameObject.SetActive(false);
     }
 
     public void SetColor(SphereColor color)

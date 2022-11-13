@@ -13,10 +13,11 @@ public class Director : MonoBehaviour
     [SerializeField] GameObject[] levels;
     [SerializeField] PlayerProjectile player;
     [SerializeField] MainMenu menu;
+    public GameObject currentlevel;
     public int redBallsCount = 0;
     public int greenBallsCount = 0;
     public int blueBallsCount = 0;
-    int levelIndex = 0;
+    public int levelIndex = 0;
     public int currentBalls = 0;
     public bool gameStarted = false;
 
@@ -58,8 +59,7 @@ public class Director : MonoBehaviour
     public void StartGame()
     {
         confetti.SetActive(false);
-        Debug.Log(levelIndex);
-        if (levelIndex >= levels.Length - 1)
+        if (levelIndex >= levels.Length)
         {
             menu.BringMenu();
             menu.resumeButton.SetActive(false);
@@ -70,8 +70,8 @@ public class Director : MonoBehaviour
             return;
         }
         Vector3 vect = new Vector3(0.77f, -0.5f, 0);
-        GameObject lvl = Instantiate(levels[levelIndex], vect, Quaternion.identity);
-        LevelScript lvlScript = lvl.GetComponent<LevelScript>();
+        currentlevel = Instantiate(levels[levelIndex], vect, Quaternion.identity);
+        LevelScript lvlScript = currentlevel.GetComponent<LevelScript>();
         player.InitGrid(lvlScript.grid);
         nextButton.SetActive(false);
         victory.SetActive(false);
@@ -95,6 +95,7 @@ public class Director : MonoBehaviour
         if (clr == SphereColor.Blue)
             blueBallsCount++;
         currentBalls++;
+        Debug.Log(currentBalls);
     }
 
     public void BallDestroyed(SphereColor clr)
@@ -109,16 +110,18 @@ public class Director : MonoBehaviour
         currentBalls--;
         if (currentBalls <= 0)
             LevelComplete();
+        Debug.Log(currentBalls);
     }
 
     private void LevelComplete()
     {
+        Destroy(currentlevel);
         levelIndex++;
         confetti.SetActive(true);
         gameStarted = false;
         lineC.gameObject.SetActive(false);
         nextButton.SetActive(true);
-        if (levelIndex < levels.Length - 1)
+        if (levelIndex <= levels.Length - 1)
         {
             victory.SetActive(true);
         }

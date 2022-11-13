@@ -7,7 +7,6 @@ public class CheckAround : MonoBehaviour
     public SphereColor selfcolor;
     public int AdjacentBallsCount = 0; // Self excluded
     public bool Exploded = false;
-    public static int ChainCount = 0;
     public bool IsCreatedByPlayer = false;
     [SerializeField] KillableSphere killSphere;
     [SerializeField] List<GameObject> sameColorBalls = new List<GameObject>();
@@ -16,13 +15,16 @@ public class CheckAround : MonoBehaviour
     {
         if ((other.gameObject.name == "BallToDestroy" || other.gameObject.name == "BallToDestroy(Clone)") && other.gameObject != killSphere.gameObject)
         {
+            Debug.Log("well something appeared in my radius");
             KillableSphere scriptSphere = other.gameObject.GetComponent<KillableSphere>();
             if (scriptSphere.ballColor == selfcolor)
             {
                 sameColorBalls.Add(other.gameObject);
                 AdjacentBallsCount++;
+                Debug.Log("same color pog. Is it enough to explode together? ^_^");
                 if (sameColorBalls.Count > 1 && IsCreatedByPlayer) // Means there are 3 in the chain at least
                 {
+                    Debug.Log("YES LETS EXPLODE EVERYONE");
                     for (int i = 0; i < sameColorBalls.Count; i++)
                     {
                         KillableSphere adjacentKillBall = sameColorBalls[i].GetComponent<KillableSphere>();
@@ -31,8 +33,10 @@ public class CheckAround : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("no :( But if it's a new ball then anyway explode!!! >:)");
                     if (IsCreatedByPlayer)
                     {
+                        Debug.Log("Created by player");
                         KillableSphere script = other.gameObject.GetComponent<KillableSphere>();
                         script.checkScript.TryExplodeChain();
                     }
@@ -51,7 +55,7 @@ public class CheckAround : MonoBehaviour
 
     public void ChainExplosion()
     {
-        Destroy(killSphere.gameObject);
+        killSphere.PopBall();
         Exploded = true;
         for (int i = 0; i < sameColorBalls.Count; i++)
         {

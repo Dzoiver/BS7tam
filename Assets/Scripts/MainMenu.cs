@@ -10,9 +10,13 @@ public class MainMenu : MonoBehaviour
     public GameObject resumeButton;
     [SerializeField] Camera menuCam;
     [SerializeField] Camera gameCam;
-    public void StartGame()
+
+    [SerializeField] GameObject levelSelectionPanel;
+    public void NewGame(int level = 0)
     {
-        HideMenu();
+        Destroy(dir.currentlevel);
+        dir.levelIndex = level;
+        HideMenuOpenGame();
         resumeButton.SetActive(true);
         gearButton.SetActive(true);
         dir.StartGame();
@@ -25,25 +29,23 @@ public class MainMenu : MonoBehaviour
         gameCam.enabled = false;
         mainMenuPanel.SetActive(true);
         menuCam.enabled = true;
+        levelSelectionPanel.SetActive(false);
     }
 
-    public void HideMenu()
+    public void HideMenuOpenGame()
     {
         dir.lineC.gameObject.SetActive(true);
         gearButton.SetActive(true);
         menuCam.enabled = false;
         gameCam.enabled = true;
         mainMenuPanel.SetActive(false);
+        levelSelectionPanel.SetActive(false);
     }
 
     public void OpenLevelSelection()
     {
-
-    }
-
-    public void SelectLevel()
-    {
-
+        mainMenuPanel.SetActive(false);
+        levelSelectionPanel.SetActive(true);
     }
 
     public void ExitGame()

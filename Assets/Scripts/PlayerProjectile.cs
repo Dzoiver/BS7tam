@@ -18,14 +18,8 @@ public class PlayerProjectile : MonoBehaviour
     public SphereColor color;
     float constantSpeed = 30f;
     float speed = 30f;
-
-    List<SphereColor> colorsLeft = new List<SphereColor>();
-    // Start is called before the first frame update
     void Start()
     {
-        colorsLeft.Add(SphereColor.Red);
-        colorsLeft.Add(SphereColor.Green);
-        colorsLeft.Add(SphereColor.Blue);
 
         endPoint = transform.position;
         rb = GetComponent<Rigidbody>();
@@ -89,6 +83,7 @@ public class PlayerProjectile : MonoBehaviour
                 newBallPosition = grid.CellToWorld(cellPos); // World pos from grid pos
                 newBallPosition.y = 0;
                 GameObject ball = Instantiate(killable, newBallPosition, Quaternion.identity);
+                Debug.Log("Color not the same creating here a ball");
                 dir.BallCreated(color);
                 KillableSphere script = ball.GetComponent<KillableSphere>();
                 script.SetColor(color);
